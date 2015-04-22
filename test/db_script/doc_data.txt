@@ -1,0 +1,20 @@
+InfoBegin
+InfoKey: ModDate
+InfoValue: D:20060324120817-07'00'
+InfoBegin
+InfoKey: CreationDate
+InfoValue: D:20060324120817-07'00'
+InfoBegin
+InfoKey: Creator
+InfoValue: Illustrator
+InfoBegin
+InfoKey: Producer
+InfoValue: Adobe PDF library 6.66
+PdfID0: 8cb70dd2bb6911daa421001124cd7e00
+PdfID1: 8d3e26f0bb6911daa421001124cd7e00
+NumberOfPages: 1
+PageMediaBegin
+PageMediaNumber: 1
+PageMediaRotation: 0
+PageMediaRect: 0 0 612 792
+PageMediaDimensions: 612 792

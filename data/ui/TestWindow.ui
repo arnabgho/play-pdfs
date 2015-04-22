@@ -18,7 +18,7 @@
     </columns>
   </object>
   <object class="TestWindow" id="test_window">
-    <property name="width_request">1200</property>
+    <property name="width_request">1000</property>
     <property name="height_request">1000</property>
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Test</property>
@@ -349,10 +349,13 @@
               <object class="GtkTreeView" id="treeView">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="margin_left">5</property>
+                <property name="margin_right">5</property>
+                <property name="margin_top">5</property>
+                <property name="margin_bottom">5</property>
                 <property name="model">model</property>
                 <property name="headers_visible">False</property>
                 <property name="headers_clickable">False</property>
-                <property name="enable_grid_lines">both</property>
                 <child internal-child="selection">
                   <object class="GtkTreeSelection" id="treeview-selection1">
                     <property name="mode">multiple</property>

@@ -3,8 +3,10 @@ import os
 from pymongo import MongoClient
 from gi.repository import Gtk # pylint: disable=E0611
 from gi.repository.GdkPixbuf import Pixbuf, InterpType
+from PIL import Image
 import sys
 import time
+
 # from lda_api.py import lda_api1
 # import "../interactive-pdf-master/lda_api.py"
 def insert_in_db(dict_object):#this function gets the dict object discussed. The object contains multiple pages of the same file usually
@@ -26,6 +28,9 @@ def insert_in_db(dict_object):#this function gets the dict object discussed. The
 		# print file_path
 		# print img_file_path
 		os.system("convert -density 300 -trim "+ file_path +" -quality 100 "+img_file_path )
+		im=Image.open(img_file_path)
+		# Image.close()
+		# print im.size
 		# time.sleep(100)
 		# img_temp_buf=Pixbuf.new_from_file(img_file_path)
 		# img_data=img_temp_buf.get_pixels_array()
@@ -33,7 +38,7 @@ def insert_in_db(dict_object):#this function gets the dict object discussed. The
 		# exit(0)
 		# img_data=img_temp_buf.get_pixels_array().encode('utf-8')
 		 # def gtk.gdk.pixbuf_new_from_data(data, colorspace, has_alpha, bits_per_sample, width, height, rowstride)
-		temp_img_doc={"img_file_path":img_file_path}# "data":img_temp_buf, "colorspace": img_temp_buf.get_colorspace(),"has_alpha":img_temp_buf.get_has_alpha(),"bits_per_sample":img_temp_buf.get_bits_per_sample(),"width":img_temp_buf.get_width(),"height":img_temp_buf.get_height(),"rowstride":img_temp_buf.get_rowstride()}
+		temp_img_doc={"img_file_path":img_file_path,"width":im.size[0],"height":im.size[1]}# "data":img_temp_buf, "colorspace": img_temp_buf.get_colorspace(),"has_alpha":img_temp_buf.get_has_alpha(),"bits_per_sample":img_temp_buf.get_bits_per_sample(),"width":img_temp_buf.get_width(),"height":img_temp_buf.get_height(),"rowstride":img_temp_buf.get_rowstride()}
 		img_insert.append(temp_img_doc)
 		# os.system("rm "+img_file_path)
 		

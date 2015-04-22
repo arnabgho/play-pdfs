@@ -2,19 +2,21 @@
 ### BEGIN LICENSE
 # This file is in the public domain
 ### END LICENSE
+from __future__ import division
 import os
 from locale import gettext as _
 
 from gi.repository import Gtk # pylint: disable=E0611
 from gi.repository.GdkPixbuf import Pixbuf, InterpType
+# from gi.repository.GdkImage import Image
 import logging
 logger = logging.getLogger('test')
-
+from PIL import Image
 from test_lib import Window
 from test.AboutTestDialog import AboutTestDialog
 from test.PreferencesTestDialog import PreferencesTestDialog
 import sys
-sys.path.append("/home/arnab/test/test/db_script")
+sys.path.append("/home/ishaan/Desktop/cs315/project/pdf-fondler/test/db_script")
 from lda_api import lda_api
 from mongodb_script import search_in_db
 
@@ -30,8 +32,9 @@ class TestWindow(Window):
         self.PreferencesDialog = PreferencesTestDialog
         self.keywordField = self.builder.get_object("keywordField")
         self.treeview = self.builder.get_object("treeView")
+        self.imageGrid = self.builder.get_object("imageGrid")
         self.model = self.builder.get_object("model") #this is lisStore
-       
+        # self.model_new = self.builder.get_object("model_new")
         self.selectedFiles = []
         # Code for other initialization actions should be added here.
     
@@ -39,29 +42,58 @@ class TestWindow(Window):
         searchString =  widget.get_text()      
         img_list = search_in_db(searchString)
         self.model.clear()
+        for col in self.treeview.get_columns():
+            self.treeview.remove_column(col)
+         
+        # print img_list.count()
         for img in img_list:
-            print img
-            self.model.append([(Pixbuf.new_from_file(img['img_file_path'])).scale_simple(400,800,InterpType.BILINEAR),img['file_path']])#treeitr the index in liststore to which entry is done
+                
+            im=Image.open(img['img_file_path'])
+            # im.size
+            # img_pixbuf = Pixbuf.new_from_file(img['img_file_path']).scale_simple(800,800,InterpType.BILINEAR)
+            # image = Gtk.Image.new_from_pixbuf(img_pixbuf)
+            # if(i%2==0):
+            # self.imageGrid.attach(image,i%2,i,1,1)
+            # else:
+                # self.imageGrid.attach(image,0,i,1,1)
+            # i=i+1    
+
+            # self.model.append([(Pixbuf.new_from_file(img['img_file_path'])),img['file_path']])#treeitr the index in liststore to which entry is done
+            self.model.append([(Pixbuf.new_from_file(img['img_file_path'])).scale_simple(900,(im.size[1]/im.size[0])*900,InterpType.BILINEAR),img['file_path']])#treeitr the index in liststore to which entry is done
             # self.model.append([Pixbuf.new_from_file(img['img_file_path'],img['colorspace'],img['has_alpha'],img['bits_per_sample'],img['width'],img['height'],img['rowstride']),img['img_file_path']])#treeitr the index in liststore to which entry is done
 
-        print searchString
-
+        # print searchString
+        # print "MODEL\n"
+        # print self.model
 
         #HERE we connect with database and retrieve from it the various entries
         # and then we populate the list and display images. 
         #after recieving things from Arnab's wrapper
        # model = Gtk.ListStore(Gtk.gdk.Pixbuf, str) #str will contain image-file-names
-#        treeview = Gtk.TreeView(model) #need modifications when rendering
-        #self.treeview.set_model(model)
+        #treeview = Gtk.TreeView(model) #need modifications when rendering
         # self.model.append([Pixbuf.new_from_data('data/media/background.png'),'data/media/background.png'])#treeitr the index in liststore to which entry is done
         # self.model.append([Pixbuf.new_from_file('data/media/download.jpg'),'data/media/download.jpg'])
        # self.model.append([Pixbuf.new_from_file('data/media/background.png'),Pixbuf.new_from_file('data/media/download.jpg')])
-        renderer = Gtk.CellRendererPixbuf() 
+
         # renderer.set_fixed_size(100)
 
+        self.treeview.set_model(self.model)
+        renderer = Gtk.CellRendererPixbuf()
+        renderer.set_padding(10,20)
+        # rendere.set_
         column = Gtk.TreeViewColumn('',renderer, pixbuf=0)
-        self.treeview.remove_column(column)
+        column.set_spacing(-1)
+        # column.set_attribute()
         self.treeview.insert_column(column,0)
+        # print column.get_spacing()
+        
+
+
+        # column.set_sizing(Gtk.TreeViewColumnSizing.FIXED)
+        # column.set_fixed_width(500)
+        # column.set_max_height(200)
+        # self.treeview.remove_column(column)
+        # self.treeview.insert_column(column,1)
         #column = Gtk.TreeViewColumn('Icon',renderer, pixbuf=1)
         #column = Gtk.TreeViewColumn()
         #self.treeview.append_column(column)
