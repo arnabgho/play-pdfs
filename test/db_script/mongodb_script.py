@@ -64,7 +64,56 @@ def search_in_db(search_string):
 		# result_img_list.append(result))
 
 	# return result_img_list
+def get_all():
+	client = MongoClient()
+	# search_string=search_string.lower()
+	db = client['pdf_interactive']
+	pdf_collection = db['pdf_collection']
+	# img_collection = db['img_collection']
+	
+	# result_img_list=[]
+	# print pdf_collection.find({"tag": search_string}).sort("weight")
+	# exit(0)
+	to_return = {}
+	temp_dict={}
+	# for result.count():
+	result =  pdf_collection.find({},{"tag":1,"_id":0,"file_path":1}).sort("weight")
+	for row in result:
+		# temp_array = row['file_path'].split('/')
+		# temp_name = temp_array[len(temp_array)-1]
+		temp_name = row['file_path']
+		file_name = temp_name.split('_',1)[0]
+		page_num = (temp_name.split('_',1)[1]).split(".")[0]
+		# print page_num, file_name
+		if file_name in to_return:
+			temp_dict = to_return[file_name]
+			if page_num in temp_dict:
+				temp_dict[page_num] += ", "+row['tag']
+			else:
+				temp_dict[page_num] = row['tag']
+		else:
+			temp_dict[page_num] = row['tag']
+			to_return[file_name] = temp_dict
 
+	return to_return
+def update_db_tag(file_path,tag_str):
+	client = MongoClient()
+	# search_string=search_string.lower()
+	db = client['pdf_interactive']
+	pdf_collection = db['pdf_collection']
+	pdf_collection.remove({"file_path":file_path})
+	tags = tag_str.split(',')
+	temp_doc={}
+	to_insert=[]
+	for tag_name in tags:
+		tag_weight = 1
+		temp_doc={"tag":tag_name,"weight":tag_weight,"file_path":file_path,"img_file_path":file_path.split('.')[0]+".jpg"}
+		to_insert.append(temp_doc)
+	result = pdf_collection.insert_many(to_insert)
+	print result.inserted_ids
+
+	# pdf_collection.update({"file_path":file_path},{tag})
 # search("hello")
 
+# get_all()
 	

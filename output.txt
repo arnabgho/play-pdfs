@@ -1,7 +1,57 @@
-Update Operators
-$set, $unset, $inc, $push, $pushAll, $pull, $pullAll, $pop, $addToSet, $rename, $bit, $ 
-positional operator 
-References​  : 
-   ● http://docs.mongodb.org/manual/reference/method/db.collection.update/ 
-   ● http://docs.mongodb.org/manual/reference/operators/#update­operators 
+     Mr ARNAB GHOSH
+                                                                                                              Booking reference: 4C2C5P
+                                                                                                            Electronic ticket:               618-2409852602
+     Dear Mr GHOSH
+                                                                                                            Date of issue:                       11 Apr 2015
+     Thank you for using the Singapore Airlines Electronic Ticket service. This is your travel itinerary.   Place of issue:                    online booking
+     We appreciate your patronage and look forward to serving you again in the near future.
+                                                                                                            IATA number:                            14395625
+     Sincerely,
+     Singapore Airlines
+
+
+
+
+Flight Details
+SQ503                                                                                           Singapore Airlines                 ECONOMY
+                   Departs: Bengaluru (BLR)                                                     Tue, 26 May 2015 23:05             Status:   CONFIRMED
+                   Arrives:     Singapore (SIN)                                                 Wed, 27 May 2015 06:10             Checked bags: 30KG
+
+                   Not valid before: Tue, 26 May 2015                                           Not valid after:       Tue, 26 May 2015
+
+SQ502                                                                                           Singapore Airlines                 ECONOMY
+                   Departs: Singapore (SIN) Terminal 2                                          Sat, 30 May 2015 20:05             Status:   CONFIRMED
+                   Arrives:     Bengaluru (BLR)                                                 Sat, 30 May 2015 21:50             Checked bags: 30KG
+
+                   Not valid before: Sat, 30 May 2015                                           Not valid after:       Sat, 30 May 2015
+
+
+
+
+Payment details
+                                                                                                                         Form of payment:
+Ticket fare:                                                             INR            19,000.00                        Visa Card - XXXXXXXXXXXX8445
+Airline Fuel and Insurance Surcharge                                      INR                12,828
+Airline Fuel and Insurance Surcharge                                      INR                     624
+Service Tax on Premium class travel                                       INR                  1,605                     Restrictions:
+                                                                                                                         VLD SQ/MI ONLY/ NON-ENDO/NON-REF
+User Development                                                          INR                  1,378
+Fee(Domestic/International)
+Passenger Service Fee                                                     INR                     147
+(Domestic/International)
+Passenger Service and Security Charge                                     INR                     914
+Aviation Levy                                                             INR                     280
+Passenger Security Service Charge                                         INR                     368
+
+
+
+Ticket amount:                                                           INR                 37,144
+
+
+
+
+                                                         Singapore Company Registration No. 197200078R
+                                                                                   Airline House
+                                                                                  25 Airline Road
+                                                                                 Singapore 819829
 

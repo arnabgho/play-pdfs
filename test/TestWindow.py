@@ -14,12 +14,13 @@ logger = logging.getLogger('test')
 from PIL import Image
 from test_lib import Window
 from test.AboutTestDialog import AboutTestDialog
+from test.ManualModeDialog import ManualModeDialog
 from test.PreferencesTestDialog import PreferencesTestDialog
 import sys
 sys.path.append("/home/ishaan/Desktop/cs315/project/pdf-fondler/test/db_script")
 from lda_api import lda_api
 from mongodb_script import search_in_db
-
+from multiprocessing import Pool
 # See test_lib.Window.py for more details about how this class works
 class TestWindow(Window):
     __gtype_name__ = "TestWindow"
@@ -29,6 +30,7 @@ class TestWindow(Window):
         super(TestWindow, self).finish_initializing(builder)
 
         self.AboutDialog = AboutTestDialog
+        self.ManualMode = ManualModeDialog
         self.PreferencesDialog = PreferencesTestDialog
         self.keywordField = self.builder.get_object("keywordField")
         self.treeview = self.builder.get_object("treeView")
@@ -162,7 +164,10 @@ class TestWindow(Window):
 
         dialog.destroy()
 
-        lda_api(file_name)
+        pool = Pool(processes=1)              # Start a worker processes.
+        result = pool.apply_async(lda_api, [file_name])
+        # p = Process(target=, args=)
+        # p.start()
         # dialog = Gtk.FileChooserDialog("Open..",None,Gtk.FILE_CHOOSER_ACTION_OPEN,(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL))
         # dialog.set_default_response(Gtk.RESPONSE_OK)
         # response = dialog.run()
