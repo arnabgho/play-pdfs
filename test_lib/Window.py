@@ -80,14 +80,16 @@ class Window(Gtk.Window):
             response = about.run()
             about.destroy()
     def on_manualMode_activate(self, widget,data=None):
-        if self.manual_dialog is not None:
-            logger.debug('show existing manual_dialog')
-            self.manual_dialog.present()
-        elif self.ManualMode is not None:
-            logger.debug('create new manual_dialog')
-            self.manual_dialog = self.ManualMode() # pylint: disable=E1102
-            # self.manual_dialog.connect('destroy', self.on_manual_dialog)
-            self.manual_dialog.run()
+        # if self.manual_dialog is not None:
+            # logger.debug('show existing manual_dialog')
+            # self.manual_dialog.present()
+        # elif self.ManualMode is not None:
+        logger.debug('create new manual_dialog')
+        self.manual_dialog = self.ManualMode() # pylint: disable=E1102
+        # self.manual_dialog.connect('destroy', self.on_manual_dialog)
+        response = self.manual_dialog.run()
+        # print response
+        self.manual_dialog.destroy()
         # builder = get_builder('ManualModeDialog')
         # new_object = builder.get_object("test_window")
         # treeview = builder.get_object("manualTreeview")
@@ -121,7 +123,7 @@ class Window(Gtk.Window):
         #     treeview.insert_column(column,0)
         #     treeview.insert_column(column1,1)
 
-        #     manual.destroy()
+        
     def on_mnu_preferences_activate(self, widget, data=None):
         """Display the preferences window for test."""
 
@@ -161,6 +163,8 @@ class Window(Gtk.Window):
         # to determine whether to create or present preferences_dialog
         self.preferences_dialog = None
 
+    
+           
     def cell_edited_callback(cell,path,model=None,col_num=0):
         print cell
         print path

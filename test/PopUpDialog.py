@@ -18,8 +18,8 @@ from mongodb_script import get_all
 
 
 # See test_lib.AboutDialog.py for more details about how this class works.
-class ManualModeDialog(Gtk.Dialog):
-    __gtype_name__ = "ManualModeDialog"
+class PopUpDialog(Gtk.Dialog):
+    __gtype_name__ = "PopUpDialog"
     
     def __new__(cls):
         """Special static method that's automatically called by Python when 
@@ -27,12 +27,12 @@ class ManualModeDialog(Gtk.Dialog):
         
         Returns a fully instantiated AboutDialog object.
         """
-        builder = get_builder('ManualModeDialog')
-        new_object = builder.get_object("manual_mode_dialog")
+        builder = get_builder('PopUpDialog')
+        new_object = builder.get_object("popup_dialog")
 
         
-        treeview = builder.get_object("manualTreeview")
-        model = builder.get_object("manualModel") #this is lisStore
+        treeview = builder.get_object("popupView")
+        model = builder.get_object("popupStore") #this is lisStore
 
         all_files = get_all()
         for file_name, page_tag_dict in all_files.iteritems(): 
@@ -72,4 +72,4 @@ class ManualModeDialog(Gtk.Dialog):
     #     """
         self.builder = builder
         self.ui = builder.get_ui(self)
-
+    # def        

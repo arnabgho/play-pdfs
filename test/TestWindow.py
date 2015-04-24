@@ -15,7 +15,10 @@ from PIL import Image
 from test_lib import Window
 from test.AboutTestDialog import AboutTestDialog
 from test.ManualModeDialog import ManualModeDialog
+from test.PopUpDialog import PopUpDialog
 from test.PreferencesTestDialog import PreferencesTestDialog
+from test_lib.helpers import get_builder
+
 import sys
 sys.path.append("/home/ishaan/Desktop/cs315/project/pdf-fondler/test/db_script")
 from lda_api import lda_api
@@ -87,6 +90,7 @@ class TestWindow(Window):
         column.set_spacing(-1)
         # column.set_attribute()
         self.treeview.insert_column(column,0)
+        self.treeview.connect('button-press-event', self.button_press_event,self)
         # print column.get_spacing()
         
 
@@ -166,6 +170,30 @@ class TestWindow(Window):
 
         pool = Pool(processes=1)              # Start a worker processes.
         result = pool.apply_async(lda_api, [file_name])
+    
+    def button_press_event(fraud,treeview,event,self):
+        # print treeview
+        # print event
+        # print fraud
+        if event.button == 3: # right click
+            path, column, cell_x, cell_y = treeview.get_path_at_pos(int(event.x), int(event.y))
+            # print path
+            child = self.model.get_iter(path)
+            img_name = self.model.get_value(child,1)
+            file_name = img_name.rsplit('.',1)[0]+".pdf"
+            print file_name
+            # builder = get_builder('PopUpDialog')
+
+            # popup_dialog = PopUpDialog(file_name)  # pylint: disable=E1102
+            # popup_dialog.populate(file_name)
+
+            # # self.manual_dialog.connect('destroy', self.on_manual_dialog)
+            # response = popup_dialog.run()
+            # # print response
+            # popup_dialog.destroy()
+
+
+
         # p = Process(target=, args=)
         # p.start()
         # dialog = Gtk.FileChooserDialog("Open..",None,Gtk.FILE_CHOOSER_ACTION_OPEN,(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL))

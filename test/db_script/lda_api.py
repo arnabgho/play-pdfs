@@ -6,6 +6,7 @@ from itertools import izip
 from nltk.corpus import stopwords
 import subprocess
 from mongodb_script import insert_in_db
+import string
 
 
 def lda_api(filename_path):
@@ -77,7 +78,9 @@ def lda_api(filename_path):
 					pos=i
 					break
 			weight=r[0:pos]
-			tag=r[pos+2:l-1]	
+			tag=r[pos+2:l-1]
+			exclude=set(string.punctuation)-set('"')
+			tag = ''.join(ch for ch in tag if ch not in exclude)	
 			w="weight"
 			t="tag"	
 			# dict={ "weight":weight,"tag":tag}
