@@ -6,6 +6,7 @@ from gi.repository.GdkPixbuf import Pixbuf, InterpType
 from PIL import Image
 import sys
 import time
+import re
 
 # from lda_api.py import lda_api1
 # import "../interactive-pdf-master/lda_api.py"
@@ -56,13 +57,18 @@ def search_in_db(search_string):
 	db = client['pdf_interactive']
 	pdf_collection = db['pdf_collection']
 	img_collection = db['img_collection']
-	
+	search_string='^'+search_string
+	regx = re.compile(search_string, re.IGNORECASE)
+	print regx
 	result_img_list=[]
-	print pdf_collection.find({"tag": search_string}).sort("weight")
-	# exit(0)
-	return pdf_collection.find({"tag": search_string}).sort("weight")
+	# print pdf_collection.find({"tag": search_string}).sort("weight")
+	# print pdf_collection.find({"tag": {'$regex': regx ,'$options':'i'  } }).sort("weight")
+	print pdf_collection.find({"tag": regx}).sort("weight")
+	# exit(0)	
+	# return pdf_collection.find({"tag": search_string}).sort("weight")
+	# return pdf_collection.find({"tag": {'$regex': regx ,'$options':'i' }  }).sort("weight")
 		# result_img_list.append(result))
-
+	return pdf_collection.find({"tag": regx}).sort("weight")
 	# return result_img_list
 
 # search("hello")
